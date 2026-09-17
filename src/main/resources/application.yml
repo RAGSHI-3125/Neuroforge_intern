@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: neuroforge-sdlc-backend
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/neuroforge_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: neuroforge123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      # 'update' auto-creates/updates tables from your entities.
+      # Switch to 'validate' once schema is stable in production.
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+
+  jackson:
+    default-property-inclusion: non_null
+
+# Custom JWT properties
+app:
+  jwt:
+    # 256-bit+ secret required for HS256. Change this before deploying anywhere public.
+    secret: c2RsY19uZXVyb2ZvcmdlX3N1cGVyX3NlY3JldF9rZXlfY2hhbmdlX21lX2luX3Byb2QhISE=
+    expiration-ms: 86400000   # 24 hours
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    com.neuroforge.sdlc: DEBUG
